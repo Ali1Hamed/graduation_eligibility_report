@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>UAE AI & IoT Challenge — من سيظل طالباً؟</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0d14;
+  --surf:#111520;
+  --surf2:#181d2e;
+  --surf3:#1e2438;
+  --border:#252d45;
+  --text:#e2e8f0;
+  --muted:#6b7a99;
+  --green:#10b981;
+  --blue:#3b82f6;
+  --amber:#f59e0b;
+  --red:#ef4444;
+  --purple:#8b5cf6;
+  --indigo:#6366f1;
+}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(160deg,#080c16 0%,#0e1525 50%,#090e1c 100%);
+  padding:3rem 2rem 2.5rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 90% 80% at 50% -20%,rgba(99,102,241,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.35);
+  color:#a5b4fc;padding:.3rem 1.1rem;border-radius:999px;font-size:.82rem;
+  margin-bottom:1.2rem;letter-spacing:.02em;
+}
+.hero h1{
+  font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;
+  background:linear-gradient(135deg,#fff 25%,#a5b4fc 65%,#34d399 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:.6rem;line-height:1.2;
+}
+.hero-desc{color:var(--muted);font-size:.95rem;margin-bottom:2rem}
+
+.global-kpis{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.gkpi{
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:16px;padding:1.1rem 1.8rem;text-align:center;min-width:130px;
+  backdrop-filter:blur(4px);
+}
+.gkpi-n{display:block;font-size:2rem;font-weight:900;}
+.gkpi-l{display:block;font-size:.78rem;color:var(--muted);margin-top:.2rem}
+.gkpi-total .gkpi-n{color:#a5b4fc}
+.gkpi-stays .gkpi-n{color:var(--green)}
+.gkpi-grad .gkpi-n{color:var(--amber)}
+
+/* ===== TOP NAV ===== */
+.topnav{
+  display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;
+  padding:1rem 1.5rem;background:var(--surf);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.nb{
+  padding:.45rem 1.2rem;border-radius:999px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;
+  font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:600;
+  transition:all .2s;
+}
+.nb:hover,.nb.act{background:rgba(99,102,241,.15);border-color:#6366f1;color:#a5b4fc}
+
+/* ===== SEARCH ===== */
+.search-wrap{display:flex;justify-content:center;padding:1.5rem 1rem .5rem}
+.search{
+  width:100%;max-width:520px;padding:.75rem 1.2rem;
+  background:var(--surf);border:1px solid var(--border);border-radius:14px;
+  color:var(--text);font-family:'Cairo',sans-serif;font-size:.95rem;outline:none;
+  transition:border-color .2s;
+}
+.search:focus{border-color:#6366f1}
+.search::placeholder{color:var(--muted)}
+
+/* ===== MAIN ===== */
+.main{max-width:1080px;margin:0 auto;padding:2rem 1.2rem 5rem}
+
+/* ===== TRACK SECTION ===== */
+.track{margin-bottom:4.5rem;scroll-margin-top:70px}
+.track-hero{
+  background:linear-gradient(135deg,var(--surf) 0%,color-mix(in srgb,var(--tc) 8%,var(--surf)) 100%);
+  border:1px solid color-mix(in srgb,var(--tc) 25%,var(--border));
+  border-radius:20px;padding:2rem;margin-bottom:1rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.track-title-row{display:flex;align-items:center;gap:1rem}
+.tk-icon{font-size:2.4rem}
+.tk-title{font-size:1.5rem;font-weight:800;margin-bottom:.15rem}
+.tk-sub{color:var(--muted);font-size:.88rem}
+.track-kpis{display:flex;gap:.8rem;flex-wrap:wrap}
+.kpi{
+  background:var(--surf2);border:1px solid var(--border);
+  border-radius:12px;padding:.8rem 1.2rem;text-align:center;min-width:90px;
+}
+.kn{display:block;font-size:1.7rem;font-weight:800}
+.kl{display:block;font-size:.72rem;color:var(--muted);line-height:1.3}
+.kpi-total .kn{color:var(--muted)}
+.kpi-stays .kn{color:var(--green)}
+.kpi-grad .kn{color:var(--amber)}
+
+.criteria-strip{
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  background:var(--surf);border:1px solid var(--border);border-radius:12px;
+  padding:.8rem 1.3rem;margin-bottom:1rem;font-size:.85rem;
+}
+.crit-stays{color:var(--green)}
+.crit-grad{color:var(--amber)}
+.crit-sep{color:var(--border)}
+.progress-wrap{
+  flex:1;min-width:80px;height:8px;border-radius:99px;overflow:hidden;
+  background:var(--surf2);display:flex;
+}
+.prog-stays,.prog-grad{height:100%;transition:width 1s ease}
+
+/* ===== TABS ===== */
+.tabs-wrap{background:var(--surf);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tab{
+  flex:1;padding:1rem;background:transparent;border:none;
+  color:var(--muted);font-family:'Cairo',sans-serif;
+  font-size:.92rem;font-weight:700;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.tab:hover{background:var(--surf2);color:var(--text)}
+.tab-active{background:var(--surf2);color:var(--text);border-bottom:2px solid var(--indigo)}
+.tc{
+  background:var(--surf3);border:1px solid var(--border);
+  border-radius:999px;padding:.1rem .65rem;font-size:.78rem;
+}
+.tcontent{display:none;flex-direction:column;gap:.9rem;padding:1.3rem}
+.tcontent.active{display:flex}
+.empty-state{
+  text-align:center;padding:3rem;color:var(--muted);
+  background:var(--surf2);border-radius:12px;
+  border:2px dashed var(--border);font-size:.95rem;
+}
+
+/* ===== TEAM CARD ===== */
+.team-card{
+  border-radius:12px;border:1px solid var(--border);
+  overflow:hidden;transition:transform .2s,box-shadow .2s;
+}
+.team-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.card-stays{border-right:4px solid var(--green)}
+.card-graduates{border-right:4px solid var(--amber)}
+.card-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 1.3rem;background:var(--surf2);flex-wrap:wrap;gap:.5rem;
+}
+.team-info{display:flex;align-items:center;gap:.8rem;flex:1}
+.ti{font-size:1.5rem;flex-shrink:0}
+.team-name{font-weight:700;font-size:.97rem;color:var(--text)}
+.team-sub{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+.mbadge{
+  padding:.3rem .95rem;border-radius:999px;font-size:.75rem;
+  font-weight:700;white-space:nowrap;flex-shrink:0;
+}
+.badge-stays{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.badge-graduates{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+.members-list{padding:.8rem 1.3rem;display:flex;flex-direction:column;gap:.45rem}
+.member-row{
+  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
+  padding:.5rem .8rem;background:var(--bg);border-radius:8px;
+}
+.member-icon{font-size:1rem;flex-shrink:0}
+.member-name{flex:1;font-size:.88rem;min-width:100px}
+.member-dob{font-size:.78rem;color:var(--muted)}
+.member-age{
+  font-size:.75rem;font-weight:700;padding:.2rem .65rem;
+  border-radius:7px;border:1px solid;white-space:nowrap;
+}
+
+footer{
+  text-align:center;padding:2rem;color:var(--muted);
+  font-size:.82rem;border-top:1px solid var(--border);
+}
+
+@media(max-width:700px){
+  .track-hero{flex-direction:column}
+  .global-kpis .gkpi{min-width:100px;padding:.8rem}
+  .criteria-strip{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">🏆 UAE AI &amp; IoT Challenge 2026</div>
+  <h1>من سيظل طالباً في العام الدراسي 2026-2027؟</h1>
+  <p class="hero-desc">تحليل الفرق بناءً على تاريخ الميلاد — العام الدراسي القادم في الإمارات • بتاريخ 5 أبريل 2026</p>
+  <div class="global-kpis">
+    <div class="gkpi gkpi-total">
+      <span class="gkpi-n">103</span>
+      <span class="gkpi-l">إجمالي الفرق</span>
+    </div>
+    <div class="gkpi gkpi-stays">
+      <span class="gkpi-n">93</span>
+      <span class="gkpi-l">📚 سيظلون طلاباً</span>
+    </div>
+    <div class="gkpi gkpi-grad">
+      <span class="gkpi-n">10</span>
+      <span class="gkpi-l">🎓 سيتخرجون هذا العام</span>
+    </div>
+  </div>
+</div>
+
+<nav class="topnav">
+  <button class="nb act" onclick="goTo('grad',this)">🎓 مشاريع التخرج (28)</button>
+  <button class="nb" onclick="goTo('hs',this)">🏫 المدارس الثانوية (75)</button>
+</nav>
+
+<div class="search-wrap">
+  <input class="search" type="text" id="q" placeholder="🔍 ابحث عن فريق أو طالب..." oninput="filter(this.value)"/>
+</div>
+
+<main class="main">
+<section class="track" id="grad">
+  <div class="track-hero" style="--tc:#6366f1">
+    <div class="track-title-row">
+      <span class="tk-icon">🎓</span>
+      <div>
+        <h2 class="tk-title">تراك مشاريع التخرج</h2>
+        <p class="tk-sub">Graduation Projects Track</p>
+      </div>
+    </div>
+    <div class="track-kpis">
+      <div class="kpi kpi-total"><span class="kn">28</span><span class="kl">إجمالي الفرق</span></div>
+      <div class="kpi kpi-stays"><span class="kn">20</span><span class="kl">📚 سيظلون طلاباً</span></div>
+      <div class="kpi kpi-grad"><span class="kn">8</span><span class="kl">🎓 سيتخرجون</span></div>
+    </div>
+  </div>
+
+  <div class="criteria-strip">
+    <div class="crit-item crit-stays">📚 <strong>سيظل طالباً:</strong> العمر ≤ 21 سنة (لديهم سنة جامعية أخرى)</div>
+    <div class="crit-sep">|</div>
+    <div class="crit-item crit-grad">🎓 <strong>سيتخرج:</strong> العمر ≥ 22 سنة (في السنة الأخيرة)</div>
+    <div class="progress-wrap">
+      <div class="prog-stays" style="width:71%; background:#6366f1"></div>
+      <div class="prog-grad" style="width:29%; background:#f59e0b"></div>
+    </div>
+    <span style="font-size:0.8rem;color:#8892a4">71% سيظلون — 29% سيتخرجون</span>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tab tab-active" onclick="tab(this,'grad-stays')">📚 سيظلون طلاباً <span class="tc">20</span></button>
+      <button class="tab" onclick="tab(this,'grad-grad')">🎓 سيتخرجون <span class="tc">8</span></button>
+    </div>
+    <div class="tcontent active" id="grad-stays">
+      <div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Amal: An AI-Assisted Emotional, Educational, Palliative Care and Clinical Suppor</div>
+            <div class="team-sub">Abu Dhabi University | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulwahed Mustafa Zreik</span>
+      <span class="member-dob">📅 05/11/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Fares Hasan Zaki</span>
+      <span class="member-dob">📅 04/11/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zainah Osama Al-Dardasawi</span>
+      <span class="member-dob">📅 07/11/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Seba Louai Alakhras</span>
+      <span class="member-dob">📅 27/01/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">REVENCAST - AI POWERED MARKET SIMULATION SOFTWARE</div>
+            <div class="team-sub">University of West London RAK | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Noman Kaleem Ahmed</span>
+      <span class="member-dob">📅 15/10/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Amaan (أمان): AI-Powered Infant Monitoring and Wellness Platform</div>
+            <div class="team-sub">Abu Dhabi University | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Shaban</span>
+      <span class="member-dob">📅 03/02/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mahmoud Ahras</span>
+      <span class="member-dob">📅 23/03/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmad Zuhair</span>
+      <span class="member-dob">📅 11/12/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mahmoud Moubarez</span>
+      <span class="member-dob">📅 10/06/2001</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">24 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">الحياة الخضراء</div>
+            <div class="team-sub">اكاديمية ياس التعليمة | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Moustafa Yassin</span>
+      <span class="member-dob">📅 15/01/1986</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">40 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Tareq</span>
+      <span class="member-dob">📅 08/01/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Hazzaa Iyad</span>
+      <span class="member-dob">📅 22/05/2012</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">13 سنة — بيانات ناقصة</span>
+    </div><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Fares Mohammed</span>
+      <span class="member-dob">📅 20/01/2011</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">15 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Salamtak</div>
+            <div class="team-sub">Abu Dhabi University | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mousa Jawad Herzallah</span>
+      <span class="member-dob">📅 17/01/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammad Samer Abu Zahra</span>
+      <span class="member-dob">📅 19/12/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Syeda Daniya Biyabani</span>
+      <span class="member-dob">📅 25/12/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Muhamed Akthar Uvaisy</span>
+      <span class="member-dob">📅 30/06/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Craftty</div>
+            <div class="team-sub">Applied Technology Schools - RAK | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Jasem Ebrahim Saeed Altaghi Alnuaimi</span>
+      <span class="member-dob">📅 21/04/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmed Omar Mohammed Alsayyah Alnuaimi</span>
+      <span class="member-dob">📅 25/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">SignTalk: AI-Powered Arabic Sign Language Translation System</div>
+            <div class="team-sub">Applied Technology Schools - RAK | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Khaled Ahmed Alnoukhatha Al Ali</span>
+      <span class="member-dob">📅 23/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ٌRashed Mohammed Rashed Huraimeesh Alshe</span>
+      <span class="member-dob">📅 15/06/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Project: Ignis Omega</div>
+            <div class="team-sub">Birla Institute of Technology and Science, Pilani- Dubai | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Krishna Nagpal</span>
+      <span class="member-dob">📅 14/11/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sujal Patial</span>
+      <span class="member-dob">📅 03/10/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI "ReVo" Tutor</div>
+            <div class="team-sub">Ajman University | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mojtaba Eidyan Dalaki</span>
+      <span class="member-dob">📅 04/08/2002</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">23 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Suhail Mansur Ali</span>
+      <span class="member-dob">📅 19/04/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mohamed Abdelmawgoud Farouk Abdelmawgoud</span>
+      <span class="member-dob">📅 21/08/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Wasla : AI Smart Platform for Events & SME</div>
+            <div class="team-sub">Al Ain University | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulrahman Mohammed Saleh Alameri</span>
+      <span class="member-dob">📅 02/03/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">18 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Adaptive Dual Prediction for Transmission Reduction in Smart Street Lighting IoT</div>
+            <div class="team-sub">American University of Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rahaf Shamroukh</span>
+      <span class="member-dob">📅 17/02/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Asma Almalik</span>
+      <span class="member-dob">📅 14/06/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Inas Mohideen</span>
+      <span class="member-dob">📅 06/06/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mariam Alansaari</span>
+      <span class="member-dob">📅 22/03/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">PowerSprout - Food Waste to Wattage</div>
+            <div class="team-sub">University of Wollongong in dubai | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Amritaa Shankar</span>
+      <span class="member-dob">📅 31/05/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sri Sruti Aditi Pillutla</span>
+      <span class="member-dob">📅 27/12/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Varenya Chivukula</span>
+      <span class="member-dob">📅 25/10/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Vanshika Choube</span>
+      <span class="member-dob">📅 23/09/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Mbrmj - A Freelance Simulation-Based Backend Development Platform Using Client S</div>
+            <div class="team-sub">British Applied College UAQ | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmad Yacine</span>
+      <span class="member-dob">📅 24/10/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">HART</div>
+            <div class="team-sub">American University Of sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mehul Pasari</span>
+      <span class="member-dob">📅 14/10/2006</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">19 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Aaditya Pasari</span>
+      <span class="member-dob">📅 03/12/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">HERALD</div>
+            <div class="team-sub">Khalifa University | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammad Ahmad Almohammad Alhnidi</span>
+      <span class="member-dob">📅 17/01/2006</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Obada Walid Mohammad Mohammad</span>
+      <span class="member-dob">📅 08/11/2006</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">19 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">EchoVision</div>
+            <div class="team-sub">American University of Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmad Ali Abu Srour</span>
+      <span class="member-dob">📅 08/01/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Amar Yasser Fiad Aly</span>
+      <span class="member-dob">📅 30/04/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Saifeldin Mohamed Hafez</span>
+      <span class="member-dob">📅 03/07/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Hussain Al Lami</span>
+      <span class="member-dob">📅 22/5/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">KHAYAL: EEG IMAGINED SPEECH CLASSIFICATION FOR SENTENCES</div>
+            <div class="team-sub">American University of Sharjah (AUS) | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmed Mehaisi</span>
+      <span class="member-dob">📅 13/01/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Haider Raza</span>
+      <span class="member-dob">📅 13/08/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mohamed Alawadhi</span>
+      <span class="member-dob">📅 27/01/2004</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Imtiaz</span>
+      <span class="member-dob">📅 26/12/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Real-Time Detection and Intervention of Body-Focused Repetitive Behaviors (BFRBs</div>
+            <div class="team-sub">American University of Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Siva Durga Adduri</span>
+      <span class="member-dob">📅 02/08/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Fatima Neshwa Shirin</span>
+      <span class="member-dob">📅 14/02/2004</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Raghad Al Saffarini</span>
+      <span class="member-dob">📅 21/06/2005</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">20 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Omar Hassan Mohamed</span>
+      <span class="member-dob">📅 05/11/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Autonomous PV Panel Cleaning Drone</div>
+            <div class="team-sub">Amity University Dubai | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdul Wahid Imran</span>
+      <span class="member-dob">📅 05/08/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Muhammed Shaju</span>
+      <span class="member-dob">📅 19/08/2001</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">24 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Autonomous PV Panel Cleaning Drone</div>
+            <div class="team-sub">Amity University Dubai | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdul Wahid Imran</span>
+      <span class="member-dob">📅 05/08/2004</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">21 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Muhammed Shaju</span>
+      <span class="member-dob">📅 19/08/2001</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">24 سنة — سيتخرج</span>
+    </div></div>
+    </div>
+    </div>
+    <div class="tcontent" id="grad-grad">
+      <div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">2.0</div>
+            <div class="team-sub">Alexandria | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Abdelrahman Ashraf</span>
+      <span class="member-dob">📅 16/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">وكمبىكمصىب</div>
+            <div class="team-sub">MohamedFahmy | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Mohamed Fahmy</span>
+      <span class="member-dob">📅 18/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">AR VISION</div>
+            <div class="team-sub">Canadian University Dubai | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mahdi Parvaz</span>
+      <span class="member-dob">📅 24/01/2004</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Thejaswini Sunil</span>
+      <span class="member-dob">📅 09/02/2004</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">Smart Health system</div>
+            <div class="team-sub">ADU | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">muaaz hafiz ahmad</span>
+      <span class="member-dob">📅 17/11/2001</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">24 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">AI and cybersecurity</div>
+            <div class="team-sub">Horizon University College | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Abdalla AlMazmi</span>
+      <span class="member-dob">📅 23/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Mohammed AlYasi</span>
+      <span class="member-dob">📅 23/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Abdalla Ahmed AlAli</span>
+      <span class="member-dob">📅 23/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">Thimar: An AI-driven solution for hydroponic farms</div>
+            <div class="team-sub">Ajman University | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Aya Hmoud</span>
+      <span class="member-dob">📅 09/08/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Ameera Saeed Hassan</span>
+      <span class="member-dob">📅 03/10/2001</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">24 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">Thought’s Signals-to-Words Translator</div>
+            <div class="team-sub">University of Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Maitha Ahmed Saleh Mohamed Alzarooni</span>
+      <span class="member-dob">📅 05/10/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">Neruotalk</div>
+            <div class="team-sub">Higher college of technology | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Alya Alhammadi</span>
+      <span class="member-dob">📅 25/08/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Buthina Ali</span>
+      <span class="member-dob">📅 13/05/2003</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">22 سنة — سيتخرج</span>
+    </div></div>
+    </div>
+    </div>
+  </div>
+</section>
+<section class="track" id="hs">
+  <div class="track-hero" style="--tc:#0ea5e9">
+    <div class="track-title-row">
+      <span class="tk-icon">🏫</span>
+      <div>
+        <h2 class="tk-title">تراك المدارس الثانوية</h2>
+        <p class="tk-sub">High School Track</p>
+      </div>
+    </div>
+    <div class="track-kpis">
+      <div class="kpi kpi-total"><span class="kn">75</span><span class="kl">إجمالي الفرق</span></div>
+      <div class="kpi kpi-stays"><span class="kn">73</span><span class="kl">📚 سيظلون طلاباً</span></div>
+      <div class="kpi kpi-grad"><span class="kn">2</span><span class="kl">🎓 سيتخرجون</span></div>
+    </div>
+  </div>
+
+  <div class="criteria-strip">
+    <div class="crit-item crit-stays">📚 <strong>سيظل طالباً:</strong> العمر ≤ 17 سنة (في الصف 10 أو 11)</div>
+    <div class="crit-sep">|</div>
+    <div class="crit-item crit-grad">🎓 <strong>سيتخرج:</strong> العمر ≥ 18 سنة (في الصف 12 — السنة الأخيرة)</div>
+    <div class="progress-wrap">
+      <div class="prog-stays" style="width:97%; background:#0ea5e9"></div>
+      <div class="prog-grad" style="width:3%; background:#f59e0b"></div>
+    </div>
+    <span style="font-size:0.8rem;color:#8892a4">97% سيظلون — 3% سيتخرجون</span>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tab tab-active" onclick="tab(this,'hs-stays')">📚 سيظلون طلاباً <span class="tc">73</span></button>
+      <button class="tab" onclick="tab(this,'hs-grad')">🎓 سيتخرجون <span class="tc">2</span></button>
+    </div>
+    <div class="tcontent active" id="hs-stays">
+      <div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI Powered Waste‌ ‌ Recognition for Smart Recycling‌</div>
+            <div class="team-sub">Applied Technology Schools-RAK | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Ahmed Albakr</span>
+      <span class="member-dob">📅 30/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Omar Alood Alteneiji</span>
+      <span class="member-dob">📅 07/12/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">My Meta-School</div>
+            <div class="team-sub">Al Hessn School for Boys Cycle 2 | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Hamed Mahammed Zamankamel Alrae</span>
+      <span class="member-dob">📅 08/05/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sultan Rashid Salim Khamis Alawani</span>
+      <span class="member-dob">📅 11/11/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Fahad Ali Muhriz Mohamed Aldhuhoori</span>
+      <span class="member-dob">📅 14/04/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khaled Khalil Sahako Sultan</span>
+      <span class="member-dob">📅 08/06/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI-Revision</div>
+            <div class="team-sub">Kings' School Al Barsha | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Danyal Ali Asgar</span>
+      <span class="member-dob">📅 28/07/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Beyond the Nurse Call: Intelligent Patient Monitoring with AI and IoT</div>
+            <div class="team-sub">Al Farouq School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">MOHAMED OBAID ALMAZROUEI</span>
+      <span class="member-dob">📅 18/01/2008</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ohammed R S Altaban</span>
+      <span class="member-dob">📅 04/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">SALEM KHALED SULAIMAN</span>
+      <span class="member-dob">📅 21/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">UAEHeritageStories</div>
+            <div class="team-sub">ALTeiween School for boys | Fujairah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">MAYED AHMED HASSAN SALEM ALHEFEIT</span>
+      <span class="member-dob">📅 26/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">HAMAD AHMED OBAID AHMED ALYAMMAHI</span>
+      <span class="member-dob">📅 22/07/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">RASHED SAEED MOHAMMED ALYAMMAHI</span>
+      <span class="member-dob">📅 13/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Gesture-Controlled Robotic Arm Using Smart Gloves</div>
+            <div class="team-sub">Yas school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmed Abdullah Hasan Alhaddad</span>
+      <span class="member-dob">📅 09/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rashed Mohamed Rashed Alshaeir Alabdouli</span>
+      <span class="member-dob">📅 24/04/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sari Abdulaziz Jaber Mohamed Alshareef</span>
+      <span class="member-dob">📅 23/08/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulaziz Ammar Abdulla Alkouk Alshehhi</span>
+      <span class="member-dob">📅 15/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Earthquake Simulation and Monitoring System Using ESP Arduino</div>
+            <div class="team-sub">Yas school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulazeiz Matar Abdulla Mohamed Almadha</span>
+      <span class="member-dob">📅 05/04/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Salem Abdulla Salem Alhammadi</span>
+      <span class="member-dob">📅 09/03/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Khaled Jumaa Khalaf Alhosani</span>
+      <span class="member-dob">📅 19/06/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khaleefa Khaled Mohamed Ahmed Alansaari</span>
+      <span class="member-dob">📅 23/08/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Saif Sultan Saeed Saleh Alnuaimi</span>
+      <span class="member-dob">📅 11/08/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">VisitAI UAE</div>
+            <div class="team-sub">روضة ومدرسة السيجي الحلقة الأولى والثانية والثالثة بنات | Fujairah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">hoor obaid ali ALHEFEITI</span>
+      <span class="member-dob">📅 17/07/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AIOT</div>
+            <div class="team-sub">AL SANAWBAR PRIVATE SCHOOL | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zeina Amjad Hassan</span>
+      <span class="member-dob">📅 21/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">sarah mahmoud al aqrabawi</span>
+      <span class="member-dob">📅 01/01/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Lujain Ahmed Al rahal</span>
+      <span class="member-dob">📅 22/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI School Management</div>
+            <div class="team-sub">Al-Faroq School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rakan Mohammad Tarek</span>
+      <span class="member-dob">📅 23/08/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hassan Ehab Maher</span>
+      <span class="member-dob">📅 27/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khaled Ahmad Almazrouei</span>
+      <span class="member-dob">📅 06/06/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmad Mohammed Abu Salik</span>
+      <span class="member-dob">📅 30/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Saden Mohammed Naser</span>
+      <span class="member-dob">📅 01/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Smart System for Athlete Safety Using AI & IoT</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Saeed Abdulla</span>
+      <span class="member-dob">📅 21/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rashed Saeed Ahmed</span>
+      <span class="member-dob">📅 20/06/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rashid Taleb Rashid</span>
+      <span class="member-dob">📅 05/11/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ali Tareq Saeed</span>
+      <span class="member-dob">📅 20/04/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Smart city</div>
+            <div class="team-sub">Manarat al sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yousef Ibrahim AlQasrawi</span>
+      <span class="member-dob">📅 20/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ali Alaa Manna</span>
+      <span class="member-dob">📅 20/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Wael Albayed</span>
+      <span class="member-dob">📅 29/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Smart Guardian Poles</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Hasan Akash</span>
+      <span class="member-dob">📅 29/06/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">GeoWind – A Smart System for Generating Clean Energy from Earth’s Heat</div>
+            <div class="team-sub">Baraem Al Ain Private School, Baniyas | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Ahmed Hamdy</span>
+      <span class="member-dob">📅 25/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Mohamed essam Mohamed hassan elsherif</span>
+      <span class="member-dob">📅 12/11/2007</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zeyad hitham fathi</span>
+      <span class="member-dob">📅 12/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Badrelden MOHAMMED</span>
+      <span class="member-dob">📅 08/08/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">yahia mohamed helmi</span>
+      <span class="member-dob">📅 06/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI summarizer</div>
+            <div class="team-sub">Manarat Alsharjah School | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Timothy Maher Toma</span>
+      <span class="member-dob">📅 04/09/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Adaptive Smart Home</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ali Mohamed Ali</span>
+      <span class="member-dob">📅 04/11/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hamdan Mohamed Ahmed</span>
+      <span class="member-dob">📅 11/11/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ghaith Ahmed Alshehhi</span>
+      <span class="member-dob">📅 16/06/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khaled Sultan Alshehhi</span>
+      <span class="member-dob">📅 21/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hassan Ibrahim Alshehhi</span>
+      <span class="member-dob">📅 16/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Smart IoT-Based Early Warning System for Mountainous Landslide and Flood Risks</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">mohammed abdulla mohammed ALDOHORI</span>
+      <span class="member-dob">📅 27/01/2008</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">SULIMAN SAQAR SULTAN MARZOUQ ALSHEHHI</span>
+      <span class="member-dob">📅 31/12/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ALI ABDULLA ALI ALSHEHHI</span>
+      <span class="member-dob">📅 03/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Bio-Adaptive Smart Workspace</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">saif saeed ahmed khammas</span>
+      <span class="member-dob">📅 05/07/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">khalifa hamdan hassan</span>
+      <span class="member-dob">📅 16/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmed Abdullah bin Abdullah</span>
+      <span class="member-dob">📅 26/01/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">suliman Yousef suliman</span>
+      <span class="member-dob">📅 29/07/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">CyberGuard</div>
+            <div class="team-sub">Baraem AL Ain Private School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Moustafa Mohamed Moustafa</span>
+      <span class="member-dob">📅 17/11/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mostafa Emad Mostafa</span>
+      <span class="member-dob">📅 22/03/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yehia Mohamed Hassan Mostafa Morsy</span>
+      <span class="member-dob">📅 10/08/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Aser Mohamed</span>
+      <span class="member-dob">📅 10/05/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">-1 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI-Driven Smart Agriculture Solution</div>
+            <div class="team-sub">Abdullah bin zubiar | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">EZZUDDIN MOHAMED ABDELRAZAQ ALSIDDIQ</span>
+      <span class="member-dob">📅 15/01/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdullah Sultan Said Mohammed Alshehhi</span>
+      <span class="member-dob">📅 14/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">OBAID RASHID KHAMIS OBAID ALNAQBI</span>
+      <span class="member-dob">📅 20/03/2008</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">RASHID NASIR MOHAMMAD HASSAN</span>
+      <span class="member-dob">📅 30/01/2008</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Mediprint</div>
+            <div class="team-sub">Umm Al Mo'mneen Girls School Cycle 3 | Fujairah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ROWDHA TALAL RASHED OBAID ALZEYOUDI</span>
+      <span class="member-dob">📅 19/08/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Shaikhah Ahmed Mobarak Obaid Alzahmi</span>
+      <span class="member-dob">📅 29/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mariam Eisa Ali Alshara Alzaabi</span>
+      <span class="member-dob">📅 10/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI Fire Engine</div>
+            <div class="team-sub">Almarfa Schools C2&C3 for Boys | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulrahman Abdulla Ghanem Ali Alhammadi</span>
+      <span class="member-dob">📅 11/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hassan Faisal Hassan Ali Al Hamadi</span>
+      <span class="member-dob">📅 10/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ABDELRAHMAN AHMAD HAMAD ISSA</span>
+      <span class="member-dob">📅 01/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">ExamShield AI – Generative AI That Detects AI Misuse & Teaches Integrity</div>
+            <div class="team-sub">ABU SAEED AL KHODREY BOYS SCHOOL | Fujairah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Salah Hazem</span>
+      <span class="member-dob">📅 09/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yassen Sherif</span>
+      <span class="member-dob">📅 24/07/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Uzair Ahmad</span>
+      <span class="member-dob">📅 15/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ziad Hamdi</span>
+      <span class="member-dob">📅 17/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yassen Mahmoud</span>
+      <span class="member-dob">📅 08/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">signa</div>
+            <div class="team-sub">MANARA ALSHARQA | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">rashed raed alshorman</span>
+      <span class="member-dob">📅 03/07/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">EduAI</div>
+            <div class="team-sub">Manarat Alsharjah School | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Timothy Maher Toma</span>
+      <span class="member-dob">📅 04/09/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AgriHab</div>
+            <div class="team-sub">AlShola Private School Al-Falah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Salem Mohammad Abudaqqa</span>
+      <span class="member-dob">📅 29/10/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Taiseer Mohammad Taha</span>
+      <span class="member-dob">📅 10/08/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Homely - the future of homework submission</div>
+            <div class="team-sub">Sharjah public school | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rayyan Bin Ashraf</span>
+      <span class="member-dob">📅 19/11/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Project sential mobile AI-Powered Autonomous Cybersecurity and rf Auditor</div>
+            <div class="team-sub">WOODLEM BRITISH SCHOOL | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rehan Basharat Ali</span>
+      <span class="member-dob">📅 17/10/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdullah Mahmood.</span>
+      <span class="member-dob">📅 30/06/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Muhammad Aaeem ali shahzad amin</span>
+      <span class="member-dob">📅 02/09/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Musa Mujahid</span>
+      <span class="member-dob">📅 08/08/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Ammar Ahmed</span>
+      <span class="member-dob">📅 21/11/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI-Powered Study Focus & Burnout Detection System</div>
+            <div class="team-sub">woodlem british school | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Jody Mohamed</span>
+      <span class="member-dob">📅 16/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Asma alhumairi</span>
+      <span class="member-dob">📅 03/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ritaj nazar</span>
+      <span class="member-dob">📅 17/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mayar mahomoud</span>
+      <span class="member-dob">📅 28/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Matukah sohail</span>
+      <span class="member-dob">📅 24/01/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Suqya Al-Shams: Solar-Powered AI & IoT Irrigation</div>
+            <div class="team-sub">Zayed Education Complex Dibba Al Fujairah Cycle 1,2 | Fujairah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ali Sulaiman Ali Alkhateibi Alkaabi</span>
+      <span class="member-dob">📅 18/08/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Aadel Ali Aldhokhairy Aldhanhani</span>
+      <span class="member-dob">📅 27/05/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Rashed Abdulla Ali Aldhanhani</span>
+      <span class="member-dob">📅 18/04/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hamdan Ahmed Rashed Ahmed Alshehhi</span>
+      <span class="member-dob">📅 20/06/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Maktoum Rashid Abdullah Ali Alyeen Al Sh</span>
+      <span class="member-dob">📅 19/09/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Homly</div>
+            <div class="team-sub">Sharjah Public School | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rayyan Bin Ashraf</span>
+      <span class="member-dob">📅 19/11/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">12 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Nova city</div>
+            <div class="team-sub">Manarat al-Sharjah private school | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohanad Abubaker abd allah</span>
+      <span class="member-dob">📅 30/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Taha Merghani</span>
+      <span class="member-dob">📅 08/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Finguard AI</div>
+            <div class="team-sub">Islamiya English School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Yusuf Sahib</span>
+      <span class="member-dob">📅 01/12/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hassaan Bin Ameer</span>
+      <span class="member-dob">📅 04/03/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Zayed Smart-Sense</div>
+            <div class="team-sub">Zayed Educational Complex - Suhailah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Aisha Abdalla Mohamed Sulaiman Aldhuhoor</span>
+      <span class="member-dob">📅 23/10/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">RAYAN SALIM RASHID OBAID ALZAABI</span>
+      <span class="member-dob">📅 11/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">NOOF NAJI RASHID MOHAMED ALNUAIMI</span>
+      <span class="member-dob">📅 10/11/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">EDU-SHIELD: A Safe Generative AI Learning Assistant for Schools</div>
+            <div class="team-sub">Al Nahda national school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Mohamed Ali Yousef El Khouly</span>
+      <span class="member-dob">📅 16/05/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Magdi Ahmed Osman Tawfieg</span>
+      <span class="member-dob">📅 29/04/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulrahman Mohamed Ali Yousef El Khouly</span>
+      <span class="member-dob">📅 08/02/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Kareem Magdi Ahmed Osman Tawfieg</span>
+      <span class="member-dob">📅 25/05/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Mohamed Abdellatif Ahmed Khalifa</span>
+      <span class="member-dob">📅 10/04/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Emirati Echoes</div>
+            <div class="team-sub">Al Nahda national school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Mohamed Essam Mohamed Elhabiby</span>
+      <span class="member-dob">📅 01/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Bader Ahmad Salamah</span>
+      <span class="member-dob">📅 07/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Yahya Siddiq Yahya Alzaman</span>
+      <span class="member-dob">📅 16/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Estavaros Esam Youssef Awad Gawargi</span>
+      <span class="member-dob">📅 18/03/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">The Empathetic Classroom Hub</div>
+            <div class="team-sub">Al Nahda national school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Adam Emad Fahmy</span>
+      <span class="member-dob">📅 31/03/2013</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI Voice-Chatbot Classroom Assistant</div>
+            <div class="team-sub">Al Nahda national school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yamen Mohamad mahmoud hamad</span>
+      <span class="member-dob">📅 23/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Laith Mazen Abdelrahman Naeim</span>
+      <span class="member-dob">📅 16/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Only Clean Speech</div>
+            <div class="team-sub">Al Nahda national school | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ahmed Ragab Ahmed Abdullah</span>
+      <span class="member-dob">📅 04/08/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Odai Rawad Aljishi</span>
+      <span class="member-dob">📅 07/02/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">KHALIL AHMAD KHALIL AL MANASRA</span>
+      <span class="member-dob">📅 29/10/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Career Compass</div>
+            <div class="team-sub">WOODLEM BRITISH SCHOOL | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Aleena Sohail</span>
+      <span class="member-dob">📅 26/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Atika Faisal</span>
+      <span class="member-dob">📅 06/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mirab Syeda</span>
+      <span class="member-dob">📅 13/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sarah misbah badr</span>
+      <span class="member-dob">📅 06/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mona elsamdi</span>
+      <span class="member-dob">📅 26/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">UrbanSense</div>
+            <div class="team-sub">Zayed Educational Complex - Suhailah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ghaya Khalid Alketbi</span>
+      <span class="member-dob">📅 29/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">SHOUQ YOUSIF ALDHUHOORI</span>
+      <span class="member-dob">📅 10/10/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Alhanouf Mohammed Aldhuhoori</span>
+      <span class="member-dob">📅 31/03/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">Wadha Khalid Alketbi</span>
+      <span class="member-dob">📅 17/03/2008</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">18 سنة — سيتخرج</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hind Saeed</span>
+      <span class="member-dob">📅 17/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI in our life</div>
+            <div class="team-sub">Shaam School for Primary and Secondary Education | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdelrahman Ahmed Sayed Mohammed Moamen</span>
+      <span class="member-dob">📅 06/04/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zayed Hassan Juma Hassan Al Shamsi</span>
+      <span class="member-dob">📅 15/10/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Underground Vein</div>
+            <div class="team-sub">Shaam Boys school | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ali Humaid Ali Hasan Alshehhi</span>
+      <span class="member-dob">📅 25/05/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Ali Mohammed Ali Alrajabi Alshe</span>
+      <span class="member-dob">📅 24/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hasan Ali Hasan Ali Albahar Alshehhi</span>
+      <span class="member-dob">📅 28/05/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khaled Jasem Mohammed Sawied Aldhoori</span>
+      <span class="member-dob">📅 03/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Firebot AI</div>
+            <div class="team-sub">Islamiya English School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Yusuf Sahib</span>
+      <span class="member-dob">📅 01/12/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hassaan Bin Ameer</span>
+      <span class="member-dob">📅 03/04/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Collision Alert System (CAS)</div>
+            <div class="team-sub">ATS - AQB | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hamad Hadi Mohammed Masoud Al ahbabi</span>
+      <span class="member-dob">📅 21/03/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">HAMAD SALEM ABDULRAMAN ALATTAS</span>
+      <span class="member-dob">📅 17/04/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">ALI NASSER HUMAID MOHAMMED ALHOSANI</span>
+      <span class="member-dob">📅 11/07/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Context-Aware & Urgency-Detecting AI for Gesture-to-Speech Communication</div>
+            <div class="team-sub">The Philippine Global School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Alyssa Candelaria</span>
+      <span class="member-dob">📅 04/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Delcy Del Rosario</span>
+      <span class="member-dob">📅 25/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Keizha Angel Sinag</span>
+      <span class="member-dob">📅 25/11/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">PiezoSole</div>
+            <div class="team-sub">Woodlem British School | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Prajval Praveen</span>
+      <span class="member-dob">📅 29/09/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zakariya McKay</span>
+      <span class="member-dob">📅 19/08/2011</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Daniel Chipenda</span>
+      <span class="member-dob">📅 03/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Bateel</div>
+            <div class="team-sub">The Philippine School Abu Dhabi | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Princess Haley C. Diaz</span>
+      <span class="member-dob">📅 23/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Precious Joy A. Guanga</span>
+      <span class="member-dob">📅 04/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Phil Justin V. Linao</span>
+      <span class="member-dob">📅 23/06/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Gabrielle Paguio Ravago</span>
+      <span class="member-dob">📅 13/10/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Nova city</div>
+            <div class="team-sub">Manarat al-Sharjah private school | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohanad abubaker abdallah</span>
+      <span class="member-dob">📅 30/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Taha Merghani</span>
+      <span class="member-dob">📅 08/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Blinlet</div>
+            <div class="team-sub">Woodlem British School | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Zulfa Jamaluddeen</span>
+      <span class="member-dob">📅 01/03/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Aura pod</div>
+            <div class="team-sub">mariam bint sultan | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rana Sadeq Hussien Alsuraihi</span>
+      <span class="member-dob">📅 12/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Chahd mahmoud mesbah</span>
+      <span class="member-dob">📅 26/08/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Smart Ironing</div>
+            <div class="team-sub">Cosmpolitan International Indian School | Ajman</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Hanin Harish</span>
+      <span class="member-dob">📅 20/01/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">14 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Ecoflux</div>
+            <div class="team-sub">The Philippine School Abu Dhabi | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Izianne Tish Berjamin</span>
+      <span class="member-dob">📅 21/05/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Armina Aguinaldo</span>
+      <span class="member-dob">📅 19/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Andrei Jin S. Gabuyo</span>
+      <span class="member-dob">📅 02/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Elijah Gabriel Labro Givanim</span>
+      <span class="member-dob">📅 02/12/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Alden Acel S. Mandia</span>
+      <span class="member-dob">📅 12/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Ecoflux</div>
+            <div class="team-sub">The Philippine School Abu Dhabi | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Izianne Tish Berjamin</span>
+      <span class="member-dob">📅 21/05/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Armina Aguinaldo</span>
+      <span class="member-dob">📅 19/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Andrei Jin S. Gabuyo</span>
+      <span class="member-dob">📅 02/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Elijah Gabriel Labro Givanim</span>
+      <span class="member-dob">📅 02/12/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Alden Acel S. Mandia</span>
+      <span class="member-dob">📅 12/12/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Haris AI</div>
+            <div class="team-sub">GEMS Modern Academy | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Shaurya Mathur</span>
+      <span class="member-dob">📅 12/07/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Tanisha Mehta</span>
+      <span class="member-dob">📅 25/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">AI or Not?</div>
+            <div class="team-sub">The Philippine Global School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Dana Nicole Reyes</span>
+      <span class="member-dob">📅 06/11/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">LifeTrack</div>
+            <div class="team-sub">Al Muniae Boys' School Cycle 1, 2, 3 | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Rashed Mohamed Rashed Binrushaid Aldahma</span>
+      <span class="member-dob">📅 12/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohamed Nadhoim Ahmed Ali</span>
+      <span class="member-dob">📅 02/03/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mhd Ghiyath ammar Almofti</span>
+      <span class="member-dob">📅 28/02/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">SafeGuard</div>
+            <div class="team-sub">Al Muniae Boys' School Cycle 1, 2, 3 | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Khalid Obaid Bakheet Mubarak Aldahmani</span>
+      <span class="member-dob">📅 20/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulla Jumah Abdulla Alqaydi</span>
+      <span class="member-dob">📅 01/03/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Wristly</div>
+            <div class="team-sub">GEMS Millennium School, Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">RISHIT CHANDRAN</span>
+      <span class="member-dob">📅 29/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Yaseen Basheer Valiyakath</span>
+      <span class="member-dob">📅 29/11/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ben Paul</span>
+      <span class="member-dob">📅 28/08/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">VisionAid Pro</div>
+            <div class="team-sub">Alsafa boy's School for secondary education | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Ammar Alaa Mohammed</span>
+      <span class="member-dob">📅 25/09/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Omar Ayman Mohammed</span>
+      <span class="member-dob">📅 06/10/2008</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mohammed Abdulgafar Alhammadi</span>
+      <span class="member-dob">📅 10/02/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">17 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">“When Your Phone Programs Your Brain… Who Reprograms It?”----"عندما يُبرمج الهات</div>
+            <div class="team-sub">Al Manarat private school | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Jenan basem younes shatat</span>
+      <span class="member-dob">📅 22/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Emotiva – AI-Powered Student Wellbeing Platform</div>
+            <div class="team-sub">Summit International School | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sharif Amer Almuhtaseb</span>
+      <span class="member-dob">📅 18/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Sofia Angela Ison</span>
+      <span class="member-dob">📅 26/10/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Abdulrahman Tareq Katayen</span>
+      <span class="member-dob">📅 17/01/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Project EyesOn</div>
+            <div class="team-sub">GEMS Our Own Indian School Al Quoz | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Danell Koshy Gijo</span>
+      <span class="member-dob">📅 13/03/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Project EyesOn</div>
+            <div class="team-sub">GEMS Our Own Indian School, Al Quoz | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Danell Koshy Gijo</span>
+      <span class="member-dob">📅 13/03/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Renourish</div>
+            <div class="team-sub">Gems Legacy School | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Vinnisha Varghese</span>
+      <span class="member-dob">📅 20/12/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Anarghya Prajithkumar</span>
+      <span class="member-dob">📅 24/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Avanthika Sreejith</span>
+      <span class="member-dob">📅 24/09/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">ShadeSense: An AI-Driven IoT Automated Shading System for Reducing Cooling Energ</div>
+            <div class="team-sub">Wasit Model School For Higher Education (Girls) | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mariam Khalid Elsayed Sayed Ahmed Mohame</span>
+      <span class="member-dob">📅 28/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">Cognitive Bureaucracy Eradication System (CBES)</div>
+            <div class="team-sub">Zayed Educational Complex -Alsaf | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Fatima Dawood Abdalla Salim Alqaydi</span>
+      <span class="member-dob">📅 15/01/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mahra Hamdan Hassan Salim Alqaydi</span>
+      <span class="member-dob">📅 11/11/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">ShadeSense: An AI-Driven IoT Automated Shading System for Reducing Cooling Energ</div>
+            <div class="team-sub">Wasit Model School For Higher Education (Girls) | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mariam Khalid Elsayed Sayed Ahmed Mohame</span>
+      <span class="member-dob">📅 28/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mariam Gamal Elashmoney</span>
+      <span class="member-dob">📅 13/07/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">OmniBuild: The Autonomous Reconfigurable Builder</div>
+            <div class="team-sub">Al Dhafra Private Schools | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">MAHA MOHAMED ALI SANAD ALQUBAISI</span>
+      <span class="member-dob">📅 19/06/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mahra Mahfoudh Ahmad Mahfoudh Al Mahri</span>
+      <span class="member-dob">📅 28/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">OmniBuild: The Autonomous Reconfigurable Builder</div>
+            <div class="team-sub">Al Dhafra Private Schools | Abu Dhabi</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">MAHA MOHAMED ALI SANAD ALQUBAISI</span>
+      <span class="member-dob">📅 19/06/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Mahra Mahfoudh Ahmad Mahfoudh Al Mahri</span>
+      <span class="member-dob">📅 28/05/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">RAY</div>
+            <div class="team-sub">Zayed Educational Complex | Ras Al Khaimah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Kenan Alhafez</span>
+      <span class="member-dob">📅 18/09/2009</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">16 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">ScoolBot AI</div>
+            <div class="team-sub">Gems Cambridge International Private School Sharjah | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Adam Ahmed</span>
+      <span class="member-dob">📅 02/10/2012</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">13 سنة — سيظل طالباً</span>
+    </div></div>
+    </div><div class="team-card card-stays">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">📘</span>
+          <div>
+            <div class="team-name">WaraqZero</div>
+            <div class="team-sub">GEMS Legacy School | Dubai</div>
+          </div>
+        </div>
+        <span class="mbadge badge-stays">📚 سيظل طالباً العام القادم</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">📚</span>
+      <span class="member-name">Adyan Rahmani</span>
+      <span class="member-dob">📅 15/04/2010</span>
+      <span class="member-age" style="color:#10b981; border-color:#10b98140; background:#10b98115">15 سنة — سيظل طالباً</span>
+    </div></div>
+    </div>
+    </div>
+    <div class="tcontent" id="hs-grad">
+      <div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">54.0</div>
+            <div class="team-sub">Alexandria | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">⚠️</span>
+      <span class="member-name">Abdelrahman Ashraf</span>
+      <span class="member-dob">📅 21/01/2026</span>
+      <span class="member-age" style="color:#ef4444; border-color:#ef444440; background:#ef444415">0 سنة — بيانات ناقصة</span>
+    </div></div>
+    </div><div class="team-card card-graduates">
+      <div class="card-header">
+        <div class="team-info">
+          <span class="ti">🏫</span>
+          <div>
+            <div class="team-name">AI-Powered Smart Urban Safety & Environmental Monitoring System</div>
+            <div class="team-sub">متخرج | Sharjah</div>
+          </div>
+        </div>
+        <span class="mbadge badge-graduates">🎓 سيتخرج هذا العام</span>
+      </div>
+      <div class="members-list"><div class="member-row">
+      <span class="member-icon">🎓</span>
+      <span class="member-name">SULTAN MOHAMED ALZAABI</span>
+      <span class="member-dob">📅 03/05/2006</span>
+      <span class="member-age" style="color:#f59e0b; border-color:#f59e0b40; background:#f59e0b15">19 سنة — سيتخرج</span>
+    </div></div>
+    </div>
+    </div>
+  </div>
+</section></main>
+
+<footer>تقرير تحليل الفرق — UAE AI &amp; IoT Challenge 2026 — تم الإنشاء بتاريخ 5 أبريل 2026</footer>
+
+<script>
+function tab(btn, id) {
+  const wrap = btn.closest('.tabs-wrap');
+  wrap.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
+  wrap.querySelectorAll('.tcontent').forEach(c => c.classList.remove('active'));
+  btn.classList.add('tab-active');
+  document.getElementById(id).classList.add('active');
+}
+function goTo(id, btn) {
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+function filter(q) {
+  q = q.toLowerCase();
+  document.querySelectorAll('.team-card').forEach(c => {
+    c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
